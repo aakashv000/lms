@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#2563eb" />
+  <text x="256" y="256" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="middle">LMS</text>
+  <path d="M256 120 C 180 120, 120 180, 120 256 C 120 332, 180 392, 256 392 C 332 392, 392 332, 392 256 C 392 180, 332 120, 256 120 Z" fill="none" stroke="white" stroke-width="16" />
+  <path d="M200 256 L 240 296 L 320 216" fill="none" stroke="white" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Frappe Learning</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      color: #334155;
+      background-color: #f8fafc;
+    }
+    .container {
+      max-width: 500px;
+    }
+    h1 {
+      color: #0f172a;
+      margin-bottom: 16px;
+    }
+    p {
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 24px;
+    }
+    .button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .button:hover {
+      background-color: #1d4ed8;
+    }
+    .offline-courses {
+      margin-top: 32px;
+      width: 100%;
+      text-align: left;
+    }
+    .course-item {
+      padding: 16px;
+      border-radius: 8px;
+      background-color: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 12px;
+    }
+    .course-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .course-progress {
+      font-size: 14px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="1" y1="1" x2="23" y2="23"></line>
+      <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+      <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+      <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+      <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+      <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+      <line x1="12" y1="20" x2="12.01" y2="20"></line>
+    </svg>
+    <h1>You're offline</h1>
+    <p>It looks like you're not connected to the internet. Don't worry, you can still access your downloaded courses.</p>
+    <button class="button" id="retry-button">Retry Connection</button>
+    
+    <div class="offline-courses" id="offline-courses">
+      <!-- Offline courses will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <script>
+    // Check if we can reconnect
+    document.getElementById('retry-button').addEventListener('click', function() {
+      window.location.reload();
+    });
+
+    // Display offline courses if available
+    async function displayOfflineCourses() {
+      try {
+        const offlineCoursesElement = document.getElementById('offline-courses');
+        
+        // This would typically come from IndexedDB in a real implementation
+        const offlineCourses = JSON.parse(localStorage.getItem('offline-courses') || '[]');
+        
+        if (offlineCourses.length === 0) {
+          offlineCoursesElement.innerHTML = '<p>No courses available offline. Connect to the internet to download courses.</p>';
+          return;
+        }
+        
+        let coursesHTML = '<h2>Your offline courses</h2>';
+        
+        offlineCourses.forEach(course => {
+          coursesHTML += `
+            <div class="course-item">
+              <div class="course-title">${course.title}</div>
+              <div class="course-progress">${course.progress}% completed</div>
+            </div>
+          `;
+        });
+        
+        offlineCoursesElement.innerHTML = coursesHTML;
+      } catch (error) {
+        console.error('Error displaying offline courses:', error);
+      }
+    }
+    
+    // Call the function when the page loads
+    displayOfflineCourses();
+  </script>
+</body>
+</html>
